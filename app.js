@@ -1,3 +1,5 @@
+//Array for list of bus routes
+
 var buses = [
      "awapuni",
      "rugby",
@@ -29,7 +31,7 @@ class Bus {
         this.timesDOM = document.getElementById("times")
     }
 
-
+//getStops function which will show bus stops when clicked
     getStops() {
         var html = '<ul>';
         for (var i = 0; i < this.busStops.length; i++) {
@@ -40,14 +42,14 @@ class Bus {
         html += '</ul>'
         return html
     }
-
+//showTimes function which shows bus times when clicked. 
     showTimes(index) {
         this.routeNameDOM.innerHTML = this.name;
         this.stopDOM.innerHTML = this.busStops[index];
         //this.createMarker(index);
         this.timesDOM.innerHTML = this.getStopTimes(index)
     }
-    
+    //getStopTimes function
     getStopTimes(index) {
         
         var contentString = "<ul>";
@@ -57,7 +59,7 @@ class Bus {
         }
         return contentString
     }
-    
+    //Provides the times of when the next bus will next come.
     getNextTime() {
     var now = new Date ()
     //1: Get times now
