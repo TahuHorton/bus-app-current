@@ -54,7 +54,7 @@ class Bus {
         
         var contentString = "<ul>";
         for (var i = 0; i < this.monFriTimes.length; i++) {
-            contentString += "<li>" + this.monFriTimes[i][index] + "</li>"
+            contentString += "<li>" + this.monFriTimes[i][index].toFixed(2) + "</li>"
             
         }
         return contentString
