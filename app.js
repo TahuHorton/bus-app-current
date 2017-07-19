@@ -29,6 +29,7 @@ class Bus {
         this.routeNameDOM = document.getElementById("route")
         this.stopDOM = document.getElementById("stop")
         this.timesDOM = document.getElementById("times")
+        this.nextDOM = document.getElementById("next")
     }
 
 //getStops function which will show bus stops when clicked
@@ -46,8 +47,8 @@ class Bus {
     showTimes(index) {
         this.routeNameDOM.innerHTML = this.name;
         this.stopDOM.innerHTML = this.busStops[index];
-        //this.createMarker(index);
-        this.timesDOM.innerHTML = this.getStopTimes(index)
+        this.timesDOM.innerHTML = this.getStopTimes(index);
+        this.nextDOM.innerHTML = this.getNextTime(index);
     }
     //getStopTimes function
     getStopTimes(index) {
@@ -60,8 +61,29 @@ class Bus {
         return contentString
     }
     //Provides the times of when the next bus will next come.
-    getNextTime() {
-    var now = new Date ()
+    getNextTime(index) {
+        var now = new Date ();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        
+        //add zero in front of numbers <10
+        minutes = this.checkTime(minutes);
+        hours = this.checkTime(hours);
+        now = hours+"."+minutes;
+        
+        for (i = 0; i < this.monFriTimes.length; i++) {
+           if (now < this.monFriTimes[i][index]) {
+                var next = this.monFriTimes[i][index];
+                return next
+            }
+            
+        }
+             
+        
+//        document.getElementById('time').innerHTML = hours + ":" + minutes; 
+        
+
+        
     //1: Get times now
     //2: Convert it to a format that you can easliy compare to our next bus time eg. 11.15
     //Hint: Search "Get time as hh.mm'
@@ -72,27 +94,19 @@ class Bus {
    // }
    //
         
+    
+    
+        
+    }
+    
+    checkTime(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
     }
 }
         
-
-
-
-
-//OBJECTS
-
-//var awapuni = new Bus("Awapuni", awapuniStops, colours[0], awapuniTimesMonFri, awapuniTimesFri, awapuniTimesSat, awapuniTimesSun);
-//var rugby = new Bus("Rugby", rugbyStops, colours[1], rugbyTimesMonFri, rugbyTimesFri, rugbyTimesSat, rugbyTimesSun)
-//var highbury = new Bus("Highbury", highburyStops, colours[2], highburyTimesMonFri, highburyTimesFri, highburyTimesSat, highburyTimesSun)
-//var takaro = new Bus("Takaro", takaroStops, colours[3], takaroTimesMonFri, takaroTimesFri, takaroTimesSat, takaroTimesSun)
-//var cloverlea = new Bus("Cloverlea", cloverleaStops, colours[4], cloverleaTimesMonFri, cloverleaTimesFri, cloverleaTimesSat, cloverleaTimesSun)
-//var milson = new Bus("Milson", milsonStops, colours[5], milsonTimesMonFri, milsonTimesFri, milsonTimesSat, milsonTimesSun)
-//var rhodes = new Bus("Rhodes", rhodesStops, colours[6], rhodesTimesMonFri, rhodesTimesFri, rhodesTimesSat, rhodesTimesSun)
-//var roslyn = new Bus("Roslyn", roslynStops, colours[7], roslynTimesMonFri, roslynTimesFri, roslynTimesSat, roslynTimesSun)
-//var rangiora = new Bus("Rangiora", rangioraStops, colours[8], rangioraTimesMonFri, rangioraTimesFri, rangioraTimesSat, rangioraTimesSun)
-//var brightwater = new Bus("Brightwater", brightwaterStops, colours[9], brightwaterTimesMonFri, brightwaterTimesFri, brightwaterTimesSat, brightwaterTimesSun)
-//var fernlea = new Bus("Fernlea", fernleaStops, colours[10], fernleaTimesMonFri, fernleaTimesFri, fernleaTimesSat, fernleaTimesSun)
-//var heights = new Bus("Heights", heightsStops, colours[11], heightsTimesMonFri, heightsTimesFri, heightsTimesSat, heightsTimesSun)
 
 //LOOP TO CREATE OBJECTS
 var routes = {};
@@ -112,7 +126,6 @@ for (var i = 0; i < buses.length; i++){
         
     routes[name] = newRoute;
 }
-
 
 //JQUERY STUFF
 $(document).ready(function () {
