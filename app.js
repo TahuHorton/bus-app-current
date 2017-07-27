@@ -98,7 +98,7 @@ class Bus {
     
         
     }
-    
+   //Adds a leading zero to the hours and minutes of next bus stop time when hours and/or minutes are less than 10 
     checkTime(i) {
       if (i < 10) {
         i = "0" + i;
