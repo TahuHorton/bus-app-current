@@ -37,7 +37,7 @@ class Bus {
         var html = '<ul>';
         for (var i = 0; i < this.busStops.length; i++) {
 
-            //onclick="                                  awapuni.showTimes(1)                                                 Deaprt MST
+            //onclick="                                  awapuni.showTimes(1)                                                 Depart MST
             html += "<li class='busStop' onclick='routes[\"" + this.name.toLowerCase() + "\"].showTimes(" + i + ")'>" + this.busStops[i] + "</li>"
         }
         html += '</ul>'
